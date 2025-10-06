@@ -24,7 +24,7 @@ class CssBoxWidget extends StatelessWidget {
     this.childIsReplaced = false,
     this.shrinkWrap = false,
     this.top = false,
-  }) : child = _generateWidgetChild(children, style);
+  }) : child = _generateWidgetChild(children, style, top: top);
 
   /// The child to be rendered within the CSS Box.
   final Widget child;
@@ -92,7 +92,8 @@ class CssBoxWidget extends StatelessWidget {
 
   /// Takes a list of InlineSpan children and generates a Text.rich Widget
   /// containing those children.
-  static Widget _generateWidgetChild(List<InlineSpan> children, Style style) {
+  static Widget _generateWidgetChild(List<InlineSpan> children, Style style,
+      {bool top = false}) {
     if (children.isEmpty) {
       return Container();
     }
@@ -103,6 +104,13 @@ class CssBoxWidget extends StatelessWidget {
       final inlineMarkerBox = _generateMarkerBoxSpan(style);
       if (inlineMarkerBox != null) {
         children.insert(0, inlineMarkerBox);
+      }
+    }
+
+    if (top && children.length == 1 && children.first is TextSpan) {
+      final TextSpan span = children.first as TextSpan;
+      if (span.children?.length == 1 && span.children?.first is WidgetSpan) {
+        return (span.children?.first as WidgetSpan).child;
       }
     }
 
