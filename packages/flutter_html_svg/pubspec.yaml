@@ -11,9 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   html: '>=0.15.0 <1.0.0'
-  flutter_html:
-    git:
-      url: git@github.com:JankoLancer/flutter_html.git
+  flutter_html: ^3.0.0
   flutter_svg: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
